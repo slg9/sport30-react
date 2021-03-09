@@ -1,0 +1,19 @@
+.container__today{
+    margin-top:100px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.player{
+    display: flex;
+    justify-content: space-around;
+}
+.action__zone{
+    display: flex;
+    flex:1;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}

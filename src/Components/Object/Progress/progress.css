@@ -1,0 +1,7 @@
+.container__progress{
+    display: flex;
+    justify-content: center;
+    width: 50vw;
+    height: 50vh;
+    background-color: red;
+}

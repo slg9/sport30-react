@@ -1,0 +1,9 @@
+.container__video{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 60vh;
+    margin-bottom:10px;
+}

@@ -1,0 +1,22 @@
+.container__drop__down{
+    min-width: 150px;
+    max-width: 150px;
+  
+    font-size: x-small;
+    background-color: black;
+    color:white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    position:fixed;
+    margin-top:265px;
+    z-index:10;
+}
+.drop__down__field{
+    display: flex;
+    min-height: 30px;
+    max-height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-top:1px solid rgba(128, 128, 128, 0.507);
+}

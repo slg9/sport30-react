@@ -1,0 +1,22 @@
+.menu__item{
+    min-width: 150px;
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-size: small;
+    cursor: pointer;
+}
+.container__menu__item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-height: 100px;
+}
+.container__drop{
+    position:fixed;
+    margin-top: 100px;
+    background-color: red;
+}
