@@ -1,17 +1,25 @@
 .container__menu{
     position: fixed;
     display: flex;
-    width: 100%;
-    flex: 1;
-    min-height: 80px;
-    max-height: 80px;
+    flex-direction: column;
+    width: 100vw;
+    z-index: 10;
     color:white;
-    background-color: black;
     justify-content: center;
 }
 
 .container__menu__content{
+    min-height: 80px;
+    max-height: 80px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    background-color: black;
+    z-index: 2;
+}
+.container__sub__menu__content{
+    display: flex;
+    min-height: 50px;
+    max-height: 50px;
+    z-index: 1;
 }
 
