@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    
 }
 .player{
     display: flex;
@@ -13,8 +14,9 @@
 }
 .action__zone{
     display: flex;
+    z-index:10;
     flex:1;
     margin: 10px;
-    justify-content: center;
-    align-items: center;
+    height: fit-content;
+    margin-top: 250px;
 }
