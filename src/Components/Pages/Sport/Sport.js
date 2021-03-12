@@ -7,62 +7,70 @@ import Video from "../../Object/Video/Video"
 function Sport() {
     const exercices = [
         {
+            id:0,
             name: "pectoraux",
-            urlVideo: "https://www.youtube.com/embed/2m6FlDwaIhc",
+            idVideo: "2m6FlDwaIhc",
             start: 70,
             urlImg: "https://images.pexels.com/photos/5809900/pexels-photo-5809900.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:480
         },
         {
+            id:1,
             name: "bras",
-            urlVideo: "https://www.youtube.com/embed/97RT7J7ikpw",
+            idVideo: "97RT7J7ikpw",
             start: 62,
             urlImg: "https://images.pexels.com/photos/1978505/pexels-photo-1978505.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:660
         }
         ,
         {
+            id:2,
             name: "abdos",
-            urlVideo: "https://www.youtube.com/embed/3eQa7C6D4XU",
+            idVideo: "3eQa7C6D4XU",
             start: 65,
             urlImg: "https://images.pexels.com/photos/1229356/pexels-photo-1229356.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:480
         }
         ,
         {
+            id:3,
             name: "epaule & dos",
-            urlVideo: "https://www.youtube.com/embed/n4fsXXfU5jY",
+            idVideo: "n4fsXXfU5jY",
             start: 50,
             urlImg: "https://images.pexels.com/photos/2092479/pexels-photo-2092479.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:660
         },
         {
+            id:4,
             name: "jambes",
-            urlVideo: "https://www.youtube.com/embed/G2NWfxVM8jg",
+            idVideo: "G2NWfxVM8jg",
             start: 54,
             urlImg: "https://images.pexels.com/photos/2294361/pexels-photo-2294361.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:720
         }
         ,
         {
+            id:5,
             name: "echauffement",
-            urlVideo: "https://www.youtube.com/embed/BrD3prXS-y0",
+            idVideo: "BrD3prXS-y0",
             start: 44,
             urlImg: "https://images.pexels.com/photos/163403/box-sport-men-training-163403.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:350
         }
         ,
         {
+            id:6,
             name: "HIIT",
-            urlVideo: "https://www.youtube.com/embed/4QVnGLuIXO8",
+            idVideo: "4QVnGLuIXO8",
             start: 155,
             urlImg: "https://cdn.pixabay.com/photo/2015/07/02/10/23/training-828741_960_720.jpg",
             duration:1080
         }
         ,
         {
+            id:7,
             name: "Etirement",
-            urlVideo: "https://www.youtube.com/embed/1lVKy__VtQw",
+            idVideo: "1lVKy__VtQw",
             start: 85,
             urlImg: "https://images.pexels.com/photos/2294363/pexels-photo-2294363.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
             duration:450
@@ -102,13 +110,11 @@ function Sport() {
             x: "100%"
         }
     }
-    const history = useHistory();
-    const control = useAnimation();
     const { sportID } = useParams();
     const [exercicePlaying, setExercicePlaying] = useState(exercices[sportID]);
     useEffect(() => {
         setExercicePlaying(exercices[sportID]);
-    }, sportID)
+    }, [sportID])
     return (
         <div>
             {exercicePlaying && <Background imageURL="https://images.pexels.com/photos/5809900/pexels-photo-5809900.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />}
@@ -123,7 +129,7 @@ function Sport() {
                     {exercicePlaying && 
                         <Video 
                             name={exercicePlaying.name} 
-                            urlVideo={exercicePlaying.urlVideo} 
+                            idVideo={exercicePlaying.idVideo} 
                             start={exercicePlaying.start} 
                             duration={exercicePlaying.duration}
                         />}
