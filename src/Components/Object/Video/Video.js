@@ -52,7 +52,7 @@ function Video({ name, idVideo, start, duration }) {
 
     const onStateChange = (event) => {
         setCurrentTime(event.target.getCurrentTime());
-        console.log(event.target.getCurrentTime());
+        console.log(event.target);
     }
     const onPause = (event) => {
         event.target.pauseVideo();

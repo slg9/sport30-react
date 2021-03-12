@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from "framer-motion"
 import './progress.css'
-function Progress({ duration, countdown,currentTime,start }) {
+function Progress({ duration, countdown, currentTime, start }) {
 
     const getTime = (t) => {
         let min = Math.floor(t / 60);
@@ -9,6 +9,7 @@ function Progress({ duration, countdown,currentTime,start }) {
 
         return { min, sec }
     }
+
     const [pauseTimer, setPauseTimer] = useState(false);
     const [timer, setTimer] = useState(duration);
     const { min, sec } = getTime(duration);
@@ -16,19 +17,22 @@ function Progress({ duration, countdown,currentTime,start }) {
     const [secondes, setSecondes] = useState(sec);
     const [finish, setFinish] = useState(false);
 
-    const decrement = ()=>{
-        setTimeout(() => {
-            setTimer(timer - 1);
-            const { min, sec } = getTime(timer);
-            setMinutes(min);
-            setSecondes(sec);
-        }, 1000)
+    const decrement = (t) => {
+        if (t - 1 < timer) {
+            setTimeout(() => {
+                setTimer(t - 1);
+                const { min, sec } = getTime(t);
+                setMinutes(min);
+                setSecondes(sec);
+                console.log("le timer est : " + min + ":" + sec)
+            }, 1000)
+        }
     }
 
     const launch = () => {
         if (!pauseTimer) {
             if (timer >= 0) {
-                decrement();
+                decrement(timer);
 
             } else {
                 setFinish(true);
@@ -47,15 +51,20 @@ function Progress({ duration, countdown,currentTime,start }) {
             setPauseTimer(true)
         } else {
             setPauseTimer(false);
-            decrement();
+            decrement(timer);
         }
     }, [countdown])
     useEffect(() => {
-        setPauseTimer(true)
-        setTimer(duration+start-Math.floor(currentTime));
-        setPauseTimer(false);
-        decrement();
-        console.log("timeline change");
+        //setPauseTimer(true);
+
+        let time = duration + start - Math.floor(currentTime);
+        if (timer !== time) {
+            setFinish(false);
+            setTimer(time);
+            console.log("timeline change to " + time);
+        }
+        //setPauseTimer(false);
+        //decrement(time);
     }, [currentTime])
 
 
