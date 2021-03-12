@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { motion } from "framer-motion"
+import { motion, useAnimation } from "framer-motion"
 import './progress.css'
 function Progress({ duration, countdown, currentTime, start }) {
 
@@ -11,19 +11,35 @@ function Progress({ duration, countdown, currentTime, start }) {
     }
 
     const [pauseTimer, setPauseTimer] = useState(false);
-    const [timer, setTimer] = useState(duration);
+
     const { min, sec } = getTime(duration);
-    const [minutes, setMinutes] = useState(min);
-    const [secondes, setSecondes] = useState(sec);
+
+    const [timerData, setTimerData] = useState({ minutes: min, secondes: sec, timer: duration })
+
     const [finish, setFinish] = useState(false);
 
+    const controlCountdownAnimation = useAnimation();
+
+    const countDownAnimation = {
+        bleep: {
+            opacity: [0.3, 1],
+            scale: [1.1, 1],
+            color: "red",
+            transition: { opacity: { repeat: Infinity, duration: 1 } }
+        },
+        anim: {
+            scale: [1.1, 1],
+            color: "white",
+            opacity: 1,
+            transition: { type: "spring", stiffness: 20 }
+        }
+    }
+
     const decrement = (t) => {
-        if (t - 1 < timer) {
+        if (t - 1 < timerData.timer) {
             setTimeout(() => {
-                setTimer(t - 1);
                 const { min, sec } = getTime(t);
-                setMinutes(min);
-                setSecondes(sec);
+                setTimerData({ minutes: min, secondes: sec, timer: t - 1 });
                 console.log("le timer est : " + min + ":" + sec)
             }, 1000)
         }
@@ -31,8 +47,8 @@ function Progress({ duration, countdown, currentTime, start }) {
 
     const launch = () => {
         if (!pauseTimer) {
-            if (timer >= 0) {
-                decrement(timer);
+            if (timerData.timer >= 0) {
+                decrement(timerData.timer);
 
             } else {
                 setFinish(true);
@@ -42,36 +58,49 @@ function Progress({ duration, countdown, currentTime, start }) {
 
     useEffect(() => {
         launch();
-    }, [timer])
+    }, [timerData.timer])
     useEffect(() => {
         launch();
     }, [])
     useEffect(() => {
         if (!countdown) {
-            setPauseTimer(true)
+            setPauseTimer(true);
+            controlCountdownAnimation.start("bleep");
         } else {
             setPauseTimer(false);
-            decrement(timer);
+            controlCountdownAnimation.stop();
+            controlCountdownAnimation.start("anim");
+            decrement(timerData.timer);
         }
     }, [countdown])
     useEffect(() => {
-        //setPauseTimer(true);
 
         let time = duration + start - Math.floor(currentTime);
-        if (timer !== time) {
-            setFinish(false);
-            setTimer(time);
-            console.log("timeline change to " + time);
+
+        if (timerData.timer !== time) {
+            setPauseTimer(true);
+            setTimeout(() => {
+
+                setFinish(false);
+                const { min, sec } = getTime(time);
+                setTimerData({ minutes: min, secondes: sec, timer: time+1 });
+                console.log("timeline change to " + time);
+            }, 1000)
         }
-        //setPauseTimer(false);
-        //decrement(time);
+
+
     }, [currentTime])
 
 
     return (
-        <motion.div class="container__progress">
+        <motion.div class="container__progress" animate={controlCountdownAnimation} variants={countDownAnimation} >
             {!finish ? (
-                <motion.span animate={{ opacity: [0.3, 1] }} transition={{ repeat: Infinity, duration: 1 }} >{`${minutes}:${secondes < 10 ? `0` : ``}${secondes}`}</motion.span>
+                <motion.span
+                    animate={controlCountdownAnimation}
+                    variants={countDownAnimation}
+                >
+                    {`${timerData.minutes}:${timerData.secondes < 10 ? `0` : ``}${timerData.secondes}`}
+                </motion.span>
             ) : (
                     <svg version="1.1" viewBox="0 0 100 100" >
                         <motion.path

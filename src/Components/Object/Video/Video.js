@@ -5,8 +5,8 @@ import YouTube from 'react-youtube'
 import "./video.css"
 
 
-function Video({ name, idVideo, start, duration }) {
-
+function Video({ name, idVideo, start }) {
+    const [duration,setDuration] = useState(0);
     const[countdown,setCountdown] = useState(true);
     const[currentTime,setCurrentTime] = useState();
     const [playVideo, setPlayVideo] = useState(false);
@@ -46,6 +46,8 @@ function Video({ name, idVideo, start, duration }) {
     };
 
     const onReady = (event) => {
+        let d = event.target.getDuration()-start;
+        setDuration(d);
         setPlayVideo(true);
 
     }
