@@ -17,7 +17,7 @@ function Progress({ duration, countdown, currentTime, start }) {
     const [timerData, setTimerData] = useState({ minutes: min, secondes: sec, timer: duration })
 
     const [finish, setFinish] = useState(false);
-
+    
     const controlCountdownAnimation = useAnimation();
 
     const countDownAnimation = {
@@ -76,16 +76,13 @@ function Progress({ duration, countdown, currentTime, start }) {
     useEffect(() => {
 
         let time = duration + start - Math.floor(currentTime);
-
+  
         if (timerData.timer !== time) {
             setPauseTimer(true);
-            setTimeout(() => {
-
-                setFinish(false);
-                const { min, sec } = getTime(time);
-                setTimerData({ minutes: min, secondes: sec, timer: time+1 });
-                console.log("timeline change to " + time);
-            }, 1000)
+            setFinish(false);
+            const { min, sec } = getTime(time);
+            setTimerData({ minutes: min, secondes: sec, timer: time });
+            console.log("timeline change to " + time);
         }
 
 

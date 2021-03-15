@@ -2,6 +2,7 @@ import React, { useState, useEffect ,useRef} from 'react'
 import { motion, useAnimation } from 'framer-motion'
 import Progress from "../Progress/Progress"
 import YouTube from 'react-youtube'
+import Image from "../Image/Image"
 import "./video.css"
 
 
@@ -53,8 +54,10 @@ function Video({ name, idVideo, start }) {
     }
 
     const onStateChange = (event) => {
-        setCurrentTime(event.target.getCurrentTime());
-        console.log(event.target);
+        let playerState = event.target.getPlayerState();
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        console.log(event.target.playerInfo.currentTime);
+        playerState === 3 && setCurrentTime(event.target.getCurrentTime());
     }
     const onPause = (event) => {
         event.target.pauseVideo();
@@ -64,6 +67,7 @@ function Video({ name, idVideo, start }) {
         event.target.playVideo();
         setCountdown(true);
     }
+   
 
     return (
         <div style={{ display: "flex", width: "100%", alignItems: "center" ,flexDirection:"column"}}>
@@ -91,9 +95,7 @@ function Video({ name, idVideo, start }) {
 
 
                             </div>
-                            {/* <div id="loader" style={{ position: "absolute", color: "red", zIndex: "10", marginLeft: "300px", marginTop: "170px" ,display: playVideo ? "none" : "flex" }}>
-                            <p>loading....</p>
-                        </div> */}
+                           
                         </>
                     }
 
@@ -106,7 +108,7 @@ function Video({ name, idVideo, start }) {
                                 animate={control}
                                 title={name}
                             >
-                                <img src={`https://i.ytimg.com/vi_webp/${idVideo}/maxresdefault.webp`} />
+                                <Image urlImg={`https://i.ytimg.com/vi_webp/${idVideo}/maxresdefault.webp`} />
                             </motion.div>
                             {!loadingVideo ? (
                                 <motion.svg onClick={handlePlay} animate={control2} className="youtube__button" height="50px" version="1.1" viewBox="0 0 68 48" width="80px">
