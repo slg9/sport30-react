@@ -12,11 +12,15 @@
     display: flex;
     justify-content: space-around;
 }
+.video__zone{
+    display: flex;
+    flex:1;
+    justify-content: center;
+}
 .action__zone{
     display: flex;
     z-index:10;
-    flex:1;
-
+    flex:0.1;
     height: fit-content;
     margin-top: 300px;
 }
