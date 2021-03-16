@@ -105,7 +105,10 @@ function Today() {
     const [currentExercices, setCurrentExercices] = useState([]);
     const [indexEx, setIndexEx] = useState(0);
     const [exercicePlaying, setExercicePlaying] = useState({});
+    const [progression,setProgression] = useState("0");
     const control = useAnimation();
+    const controlBar = useAnimation();
+
     useEffect(() => {
         const dayNum = new Date().getDay() - 1;
         console.log(dayNum);
@@ -125,11 +128,22 @@ function Today() {
 
     const nextExercice = () => {
         let max = currentExercices.length - 1;
-        setIndexEx(indexEx === max ? 0 : indexEx + 1);
+        setIndexEx(indexEx === max ? max : indexEx + 1);
+        let pourcentage = (indexEx+1)*50/(max+1);
+        if(pourcentage > progression) {
+            setProgression(pourcentage);
+            controlBar.start({x2:pourcentage});
+        }
     }
     const prevExercice = () => {
         let max = currentExercices.length - 1;
-        setIndexEx(indexEx === 0 ? max : indexEx - 1);
+        setIndexEx(0);
+        setProgression(0);
+        controlBar.start({x2:0});
+        /* console.log(indexEx);
+        let pourcentage = (indexEx+1)*50/(max+1);
+        setProgression(pourcentage);
+        controlBar.start({x2:progression}); */
     }
 
     return (
@@ -141,7 +155,7 @@ function Today() {
                     <div class="action__zone">
                         <motion.svg
                             onClick={prevExercice}
-                            style={{ cursor:"pointer",visibility: indexEx > 0 ? "visible" : "hidden" }}
+                            style={{ cursor:"pointer",visibility: progression===50  ? "visible" : "hidden" }}
                             height="50px"
                             version="1.1"
                             viewBox="0 0 68 48"
@@ -157,13 +171,13 @@ function Today() {
                         </motion.svg>
                     </div>
                     <div class="video__zone">
-                        {exercicePlaying && <motion.div animate={control}><Video key={indexEx} name={exercicePlaying.name} idVideo={exercicePlaying.idVideo} start={exercicePlaying.start} duration={exercicePlaying.duration}/></motion.div>}
+                        {exercicePlaying && <motion.div animate={control}><Video nextExercice={nextExercice} key={indexEx} name={exercicePlaying.name} idVideo={exercicePlaying.idVideo} start={exercicePlaying.start} duration={exercicePlaying.duration}/></motion.div>}
                     </div>
                     <div class="action__zone">
 
                         <motion.svg
                             onClick={nextExercice}
-                            style={{ cursor:"pointer",visibility: indexEx < currentExercices.length - 1 ? "visible" : "hidden" }}
+                            style={{ cursor:"pointer" }}
                             height="50px"
                             version="1.1"
                             viewBox="0 0 68 48"
@@ -181,6 +195,10 @@ function Today() {
                     </div>
 
                 </motion.div>
+                <svg version="1.1" viewBox="0 0 50 1" height="10px" width="500px" style={{backgroundColor:"rgba(255,255,255,0.5)"}}>
+                <motion.line  animate={controlBar} x1="0" x2="0" y1="0" y2="0" style={{ stroke: "white", strokeWidth: "200" }} ></motion.line>
+                </svg>
+                <h1>{progression*2}%</h1>
 
             </div>
         </div>

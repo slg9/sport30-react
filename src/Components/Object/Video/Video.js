@@ -1,15 +1,16 @@
 import React, { useState, useEffect ,useRef} from 'react'
 import { motion, useAnimation } from 'framer-motion'
-import Progress from "../Progress/Progress"
+import Prog from "../Progress/ProgressV2"
 import YouTube from 'react-youtube'
 import Image from "../Image/Image"
 import "./video.css"
 
 
-function Video({ name, idVideo, start }) {
+function Video({ name, idVideo, start ,nextExercice}) {
     const [duration,setDuration] = useState(0);
     const[countdown,setCountdown] = useState(true);
     const[currentTime,setCurrentTime] = useState();
+    const[moveTimeline,setMoveTimeline] = useState(false);
     const [playVideo, setPlayVideo] = useState(false);
     const [loadingVideo, setLoadingVideo] = useState(false);
     const control = useAnimation();
@@ -19,6 +20,7 @@ function Video({ name, idVideo, start }) {
 
     useEffect(() => {
         setCurrentTime(start);
+        setMoveTimeline(false);
         setCountdown(true);
         setPlayVideo(false);
         setLoadingVideo(false);
@@ -55,9 +57,13 @@ function Video({ name, idVideo, start }) {
 
     const onStateChange = (event) => {
         let playerState = event.target.getPlayerState();
-        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        console.log(event.target.playerInfo.currentTime);
-        playerState === 3 && setCurrentTime(event.target.getCurrentTime());
+        setMoveTimeline(false);
+        if(playerState === 3){
+        
+            setCurrentTime(event.target.getCurrentTime());
+            setMoveTimeline(true);
+        } 
+            
     }
     const onPause = (event) => {
         event.target.pauseVideo();
@@ -74,7 +80,7 @@ function Video({ name, idVideo, start }) {
             <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
                     <h1 style={{ display: "flex", flex: "1", justifyContent: "center" }}>{name}</h1>
 
-                    {playVideo && <Progress countdown={countdown} currentTime={currentTime} duration={duration} start={start} style={{ position: "absolute" }} />}
+                    {playVideo && <Prog nextExercice={nextExercice} countdown={countdown} moveTimeline={moveTimeline} currentTime={currentTime} duration={duration} start={start} style={{ position: "absolute" }} />}
                 </div>
             <div class="container__video">
                 
