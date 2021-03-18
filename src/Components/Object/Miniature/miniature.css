@@ -1,0 +1,14 @@
+.youtube__button{
+    position: absolute;
+    margin-top: 230px;
+    margin-left: 430px;
+    cursor:pointer;  
+ }
+ .container__img > img{
+    width: 100%;
+    border-radius: 15px;
+}
+.container__img{
+    display: flex;
+    flex:1;
+}

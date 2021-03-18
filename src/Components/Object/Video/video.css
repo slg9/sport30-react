@@ -3,9 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 700px;
-    height: 500px;
-    margin-bottom:10px;
+    width: 940px;
+    height: 650x;
     overflow: hidden;
     
       
@@ -17,22 +16,8 @@
     display: flex;
     overflow: hidden;
     border-radius:15px;
-
   
 }
-.container__img > img{
-    width: 100%;
-    border-radius: 15px;
-}
-.container__img{
-    display: flex;
-    flex:1;
-}
 
 
-.youtube__button{
-   position: absolute;
-   margin-top: 170px;
-   margin-left: 300px;
-   cursor:pointer;  
-}
+

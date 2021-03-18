@@ -1,6 +1,6 @@
 import './App.css';
 import Menu from '../Header/Menu/Menu';
-import Today from '../Today/Today';
+import Session from '../Session/Session';
 import { Route, Switch } from "react-router-dom";
 import Sport from '../Sport/Sport';
 
@@ -13,7 +13,7 @@ function App() {
           <Sport />
         </Route>
         <Route path="/">
-          <Today />
+          <Session />
         </Route>
 
       </Switch>

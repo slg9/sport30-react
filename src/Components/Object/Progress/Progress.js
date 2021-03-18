@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation } from "framer-motion"
 import "./progress.css";
 
-const Prog = ({ duration, countdown, currentTime, moveTimeline, start,nextExercice }) => {
+const Prog = ({ duration, countdown, currentTime, start,nextExercice,finish,setFinish }) => {
 
-    const [finish, setFinish] = useState(false);
     const [goTo, setGoTo] = useState({ active: false, go: start });
     const [timer, setTimer] = useState(duration);
     const getTime = (t) => {
@@ -38,19 +37,20 @@ const Prog = ({ duration, countdown, currentTime, moveTimeline, start,nextExerci
     useEffect(() => {
         if (!goTo.active) {
             if (countdown) {
-                console.log("move  1: " + moveTimeline);
+                console.log("le fameux timer" + timer);
                 if (timer >= 0) {
                     setFinish(false);
                     setTimeout(() => { setTimer(timer - 1) }, 1000)
                 }else{
                     setFinish(true);
-                    setTimeout(()=>{nextExercice()},500)
+                    nextExercice && setTimeout(()=>{nextExercice()},500)
                     
                 }
                 controlCountdownAnimation.stop();
                 controlCountdownAnimation.start("anim"); 
 
             }else{
+                console.log("la video est sur pause")
                 controlCountdownAnimation.stop();
                 controlCountdownAnimation.start("bleep");
             }
@@ -66,9 +66,10 @@ const Prog = ({ duration, countdown, currentTime, moveTimeline, start,nextExerci
     useEffect(() => {
 
         let time = duration - Math.floor(currentTime) + start;
+        console.log("finish equal "+finish+" et timer : "+time+" current time : "+Math.floor(currentTime));
         setGoTo({active:true,go:time});
 
-    }, [moveTimeline]);
+    }, [currentTime]);
 
 
 
